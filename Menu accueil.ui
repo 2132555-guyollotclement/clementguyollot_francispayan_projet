@@ -17,40 +17,13 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="labelTitreLivre">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>40</y>
-      <width>951</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Viner Hand ITC</family>
-      <pointsize>50</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Les Maitres des Ténèbres</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::AutoText</enum>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="labelSousTitreLivre">
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>160</y>
+      <y>240</y>
       <width>751</width>
-      <height>281</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="font">
@@ -118,6 +91,21 @@
     </property>
     <property name="text">
      <string>Choisissez le nom de votre personnage :</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxLivre">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>40</y>
+      <width>711</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>36</pointsize>
+     </font>
     </property>
    </widget>
   </widget>

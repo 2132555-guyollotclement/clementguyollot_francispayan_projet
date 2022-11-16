@@ -17,40 +17,13 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="labelTitreLivre">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>40</y>
-      <width>951</width>
-      <height>151</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Viner Hand ITC</family>
-      <pointsize>50</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Les Maitres des Ténèbres</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::AutoText</enum>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QLabel" name="labelSousTitreLivre">
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>160</y>
+      <y>240</y>
       <width>751</width>
-      <height>281</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="font">
@@ -77,8 +50,8 @@
    <widget class="QPushButton" name="pushButtonDebutPartie">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>610</y>
+      <x>380</x>
+      <y>580</y>
       <width>281</width>
       <height>151</height>
      </rect>
@@ -100,14 +73,47 @@
    <widget class="QTextEdit" name="textEditNomPersonnage">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>100</x>
       <y>470</y>
-      <width>381</width>
+      <width>231</width>
       <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
    </widget>
    <widget class="QLabel" name="labelNomPersonnage">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>440</y>
+      <width>251</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Choisissez le nom de votre personnage :</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxLivre">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>40</y>
+      <width>711</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>36</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelArmePersonnage">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -117,7 +123,80 @@
      </rect>
     </property>
     <property name="text">
-     <string>Choisissez le nom de votre personnage :</string>
+     <string>Choisissez l'arme de votre personnage :</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxArmePersonnage">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>470</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelDisciplinePersonnage">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>440</y>
+      <width>291</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Choisissez les 5 disciplines de votre personnage :</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxDisciplinePersonnage_1">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>470</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxDisciplinePersonnage_2">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>530</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxDisciplinePersonnage_3">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>590</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxDisciplinePersonnage_4">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>650</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxDisciplinePersonnage_5">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>710</y>
+      <width>231</width>
+      <height>41</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -145,8 +224,6 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources>
-  <include location="../couverture.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

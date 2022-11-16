@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1055</width>
-    <height>827</height>
+    <width>1051</width>
+    <height>818</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,7 @@
     </font>
    </property>
    <property name="text">
-    <string>1</string>
+    <string/>
    </property>
    <property name="textFormat">
     <enum>Qt::AutoText</enum>
@@ -101,7 +101,7 @@
    <property name="font">
     <font>
      <family>Calibri</family>
-     <pointsize>12</pointsize>
+     <pointsize>9</pointsize>
      <italic>false</italic>
     </font>
    </property>
@@ -113,6 +113,9 @@
    </property>
    <property name="text">
     <string>TextLabel</string>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

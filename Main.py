@@ -80,6 +80,69 @@ def selectionPrologue():
     uichapitre.labelChapitreNo.setText(prologue[0])
     uichapitre.labelTexteChapitre.setText(prologue[1])
 
+  uichapitre.pushButtonChoixChapitre.setEnabled(False)
+
+# Fonction qui sélectionne le premier chapitre
+def selectionChapitre():
+  # Création du curseur
+  mycursor = mydb.cursor()
+
+  requeteChapitre = "SELECT no_chapitre, texte FROM chapitre WHERE livre_id = 1 AND no_chapitre = 1"
+
+  mycursor.execute(requeteChapitre)
+
+  # Le curseur récupère toutes les données du résultat de la requête
+  myresult = mycursor.fetchall()
+
+  for (chapitre) in myresult:
+    uichapitre.labelNumeroChapitre.setText(str(chapitre[0]))
+    uichapitre.labelTexteChapitre.setText(chapitre[1])
+
+  uichapitre.pushButtonChoixChapitre.setEnabled(True)
+  uichapitre.pushButtonPasserPrologue.setEnabled(False)
+  uichapitre.labelChapitreNo.setText("Chapitre N°")
+  affichageChapitreSuivant()
+
+# Fonction qui sélectionne le chapitre suivant
+def affichageChapitreSuivant():
+  chapitre_origine = uichapitre.labelNumeroChapitre.text()
+  # Création du curseur
+  mycursor = mydb.cursor()
+
+  requeteChapitreSuivant = "SELECT no_chapitre_destination FROM lien_chapitre WHERE no_chapitre_origine = %s"
+  # Ensuite on crée un tuple avec les valeurs des paramêtres
+  parametres = (chapitre_origine,)
+
+  mycursor.execute(requeteChapitreSuivant,parametres)
+
+  # Le curseur récupère toutes les données du résultat de la requête
+  myresult = mycursor.fetchall()
+
+  for (no_chapitre_destination) in myresult:
+    uichapitre.comboBoxChapitreSuivant.addItem(str(no_chapitre_destination[0]))
+
+
+def selectionChapitreSuivant():
+
+  # Création du curseur
+  mycursor = mydb.cursor()
+
+  requeteChapitre = "SELECT no_chapitre, texte FROM chapitre WHERE livre_id = 1 AND no_chapitre = %s"
+
+  val_chapitre_suivant = (uichapitre.comboBoxChapitreSuivant.currentText(),)
+
+  mycursor.execute(requeteChapitre, val_chapitre_suivant)
+
+  # Le curseur récupère toutes les données du résultat de la requête
+  myresult = mycursor.fetchall()
+
+  for (chapitre) in myresult:
+    uichapitre.labelNumeroChapitre.setText(str(chapitre[0]))
+    uichapitre.labelTexteChapitre.setText(chapitre[1])
+
+  uichapitre.comboBoxChapitreSuivant.clear()
+  affichageChapitreSuivant()
+  
 # Fonction qui insert le personnage créé par le joueur dans la BD
 def insertionPersonnage():
   mycursor = mydb.cursor()
@@ -221,5 +284,8 @@ def debuterPartie():
 
 ui.pushButtonDebutPartie.clicked.connect(debuterPartie)
 
+uichapitre.pushButtonPasserPrologue.clicked.connect(selectionChapitre)
+
+uichapitre.pushButtonChoixChapitre.clicked.connect(selectionChapitreSuivant)
 
 sys.exit(app.exec_())

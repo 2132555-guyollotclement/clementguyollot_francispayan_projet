@@ -144,6 +144,7 @@ CREATE TABLE sauvegarde (
     livre_id INTEGER,
     chapitre_id INTEGER,
     personnage_id INTEGER,
+    date_sauvegarde DATETIME,
     FOREIGN KEY (livre_id) REFERENCES livre (id),
     FOREIGN KEY (personnage_id) REFERENCES personnage (id),
     FOREIGN KEY (chapitre_id) REFERENCES chapitre (id)
@@ -197,9 +198,9 @@ CREATE TRIGGER sauvegarde_before_delete
         SET _nb_sauvegarde_selectionne = (
 			SELECT OLD.id
 				FROM sauvegarde
-                WHERE id = OLD.supprime_par
+                WHERE id = OLD.id
 		);
-        IF NOT EXISTS (SELECT * FROM sauvegarde WHERE id = OLD.supprime_par) THEN
+        IF NOT EXISTS (SELECT * FROM sauvegarde WHERE id = OLD.id) THEN
             SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Aucune sauvegarde n\a été sélectionnée';
         END IF;

@@ -113,7 +113,7 @@ def affichageChapitreSuivant():
   # Ensuite on crée un tuple avec les valeurs des paramêtres
   parametres = (chapitre_origine,)
 
-  mycursor.execute(requeteChapitreSuivant,parametres)
+  mycursor.execute(requeteChapitreSuivant, parametres)
 
   # Le curseur récupère toutes les données du résultat de la requête
   myresult = mycursor.fetchall()
@@ -157,15 +157,16 @@ def insertionPersonnage():
 
   return mycursor.lastrowid
 
+# Fonction qui permet de récupérer l'ID du dernier personnage créé
 def recupererIdPersonnage():
   mycursor = mydb.cursor()
-  sql = "SELECT id FROM personnage WHERE id = LAST_INSERT_ID()"
+  sql = "SELECT id FROM personnage ORDER BY id DESC LIMIT 1"
 
   mycursor.execute(sql,)
 
-  myresult = mycursor.fetchall()
+  myresult = mycursor.fetchone()
 
-  return myresult
+  return myresult[0]
 
     
 # Fonction qui insert l'arme du personnage dans la BD
@@ -240,6 +241,56 @@ def insertionDiscipline5(val_personnage_id):
 
   mydb.commit()
 
+
+def effectuerSauvegarde():
+
+  personnage_id = recupererIdPersonnage()
+
+  mycursor = mydb.cursor()
+
+  sql = "INSERT INTO sauvegarde (titre, livre_id, chapitre_id, personnage_id, date_sauvegarde) VALUES ((SELECT nom FROM personnage WHERE id = %s), 1, %s, %s, NOW())"
+  
+  chapitre_en_cours = uichapitre.labelNumeroChapitre.text()
+  parametre = (personnage_id, chapitre_en_cours, personnage_id,)
+
+  mycursor.execute(sql, parametre)
+
+  mydb.commit()
+
+
+def afficherSauvegarde():
+  # Création du curseur
+  mycursor = mydb.cursor()
+
+  requeteChapitreSuivant = "SELECT id, titre, date_sauvegarde FROM sauvegarde"
+  # Ensuite on crée un tuple avec les valeurs des paramêtres
+
+  mycursor.execute(requeteChapitreSuivant,)
+
+  # Le curseur récupère toutes les données du résultat de la requête
+  myresult = mycursor.fetchall()
+
+  for (id, titre, date) in myresult:
+    ui.comboBoxAfficherSauvegarde.addItem('{}_{}'.format(titre, date), id)
+    
+
+def supprimerSauvegarde():
+
+  mycursor = mydb.cursor()
+
+  sql = "DELETE FROM sauvegarde WHERE id = %s"
+  # Le currentData permet de récupérer la valeur de l'id de la valeur du comboBox sélectionné, indiqué dans ui.comboBoxAfficherSauvegarde.addItem('{}_{}'.format(titre, date), id) <--
+  val_sauvegarde_id = ui.comboBoxAfficherSauvegarde.currentData()
+
+  mycursor.execute(sql, (val_sauvegarde_id,))
+
+  mydb.commit()
+
+  ui.comboBoxAfficherSauvegarde.clear()
+
+  afficherSauvegarde()
+
+
 def afficheChapitre():
   chapitre.show()
 
@@ -249,6 +300,7 @@ ui = Ui_MainWindow()
 ui.setupUi(MainWindow)
 
 selectionLivre()
+afficherSauvegarde()
 selectionArmePersonnage()
 selectionDisciplinePersonnage()
 recupererIdPersonnage()
@@ -287,5 +339,9 @@ ui.pushButtonDebutPartie.clicked.connect(debuterPartie)
 uichapitre.pushButtonPasserPrologue.clicked.connect(selectionChapitre)
 
 uichapitre.pushButtonChoixChapitre.clicked.connect(selectionChapitreSuivant)
+
+uichapitre.pushButtonSauvegarde.clicked.connect(effectuerSauvegarde)
+
+ui.pushButtonSupprimer.clicked.connect(supprimerSauvegarde)
 
 sys.exit(app.exec_())

@@ -28,7 +28,7 @@ TO math@localhost;
 # Création de la table livre
 CREATE TABLE livre (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    titre VARCHAR(100),
+    titre VARCHAR(100)
 );
 
 # Insertion des données du livre
@@ -65,7 +65,7 @@ CREATE TABLE lien_chapitre  (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
     no_chapitre_origine INTEGER,
     no_chapitre_destination INTEGER,
-    FOREIGN KEY (no_chapitre_origine) REFERENCES chapitre (id)
+    FOREIGN KEY (no_chapitre_origine) REFERENCES chapitre (id),
     FOREIGN KEY (no_chapitre_destination) REFERENCES chapitre (id)
 );
 
@@ -104,7 +104,7 @@ CREATE TABLE personnage_discipline (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
     personnage_id INTEGER,
     discipline_id INTEGER,
-    FOREIGN KEY (personnage_id) REFERENCES personnage (id)
+    FOREIGN KEY (personnage_id) REFERENCES personnage (id),
     FOREIGN KEY (discipline_id) REFERENCES discipline (id)
 );
 
@@ -133,8 +133,20 @@ CREATE TABLE personnage_arme (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
     personnage_id INTEGER,
     arme_id INTEGER,
-    FOREIGN KEY (personnage_id) REFERENCES personnage (id)
+    FOREIGN KEY (personnage_id) REFERENCES personnage (id),
     FOREIGN KEY (arme_id) REFERENCES arme (id)
+);
+
+# Création de la table sauvegarde
+CREATE TABLE sauvegarde (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    titre VARCHAR(200),
+    livre_id INTEGER,
+    chapitre_id INTEGER,
+    personnage_id INTEGER,
+    FOREIGN KEY (livre_id) REFERENCES livre (id),
+    FOREIGN KEY (personnage_id) REFERENCES personnage (id),
+    FOREIGN KEY (chapitre_id) REFERENCES chapitre (id)
 );
 
 
@@ -142,17 +154,24 @@ CREATE TABLE personnage_arme (
  * Quand on ajoute un héro, validez AVANT l'ajout que le nom n'existe pas déjà dans la table personnage.
  * Si le nom existe, empêche la requête INSERT et retourne un message d'erreurs
  */
-DELIMITER $$
 
-DROP TRIGGER IF EXISTS hero_before_insert$$
+DROP TRIGGER IF EXISTS hero_before_insert;
+
+DELIMITER $$
 
 CREATE TRIGGER hero_before_insert
     BEFORE INSERT 
     ON personnage FOR EACH ROW 
 
     BEGIN 
+    DECLARE _nb_hero_similaire INTEGER;
+        SET _nb_hero_similaire = (
+			SELECT count(*)
+				FROM Partie personnage
+                WHERE nom = NEW.nom
+		);
 
-        IF COUNT(SELECT * FROM personnage WHERE nom = NEW.nom) > 0 THEN
+        IF _nb_hero_similaire > 0 THEN
             SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Ce héro est déjà parti à l\'aventure !';
         END IF;
@@ -166,15 +185,20 @@ DELIMITER ;
  * Affiche un message d'erreur si aucune sauvegarde n'a été sélectionnée AVANT la suppression
  */
 
+DROP TRIGGER IF EXISTS sauvegarde_before_delete;
+
 DELIMITER $$
-
-DROP TRIGGER IF EXISTS sauvegarde_before_delete$$
-
 CREATE TRIGGER sauvegarde_before_delete
     BEFORE DELETE 
     ON sauvegarde FOR EACH ROW 
 
     BEGIN 
+    DECLARE _nb_sauvegarde_selectionne INTEGER;
+        SET _nb_sauvegarde_selectionne = (
+			SELECT OLD.id
+				FROM sauvegarde
+                WHERE id = OLD.supprime_par
+		);
         IF NOT EXISTS (SELECT * FROM sauvegarde WHERE id = OLD.supprime_par) THEN
             SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Aucune sauvegarde n\a été sélectionnée';

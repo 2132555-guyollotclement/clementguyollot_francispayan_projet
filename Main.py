@@ -2,9 +2,9 @@ import Chapitre
 import mysql.connector
 
 mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  password="",
+  host="127.0.0.1",
+  user="Matthieu",
+  password="123",
   database="ldvelh"
 )
 
@@ -303,7 +303,6 @@ selectionLivre()
 afficherSauvegarde()
 selectionArmePersonnage()
 selectionDisciplinePersonnage()
-recupererIdPersonnage()
 
 
 #Création de la boite de dialogue Chapitre

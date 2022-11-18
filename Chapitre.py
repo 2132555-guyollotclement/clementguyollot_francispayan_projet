@@ -17,7 +17,7 @@ class Ui_Dialog(object):
         Dialog.resize(1055, 827)
         Dialog.setStyleSheet("")
         self.pushButtonSauvegarde = QtWidgets.QPushButton(Dialog)
-        self.pushButtonSauvegarde.setGeometry(QtCore.QRect(50, 20, 93, 41))
+        self.pushButtonSauvegarde.setGeometry(QtCore.QRect(50, 30, 93, 41))
         self.pushButtonSauvegarde.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButtonSauvegarde.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.pushButtonSauvegarde.setObjectName("pushButtonSauvegarde")

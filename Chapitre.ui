@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1051</width>
-    <height>818</height>
+    <width>1055</width>
+    <height>827</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButtonSauvegarde">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -118,7 +118,7 @@
     <bool>true</bool>
    </property>
    <property name="alignment">
-    <set>Qt::AlignCenter</set>
+    <set>Qt::AlignJustify|Qt::AlignVCenter</set>
    </property>
    <property name="wordWrap">
     <bool>true</bool>
@@ -152,30 +152,43 @@
     <string>GO</string>
    </property>
   </widget>
-  <widget class="QPlainTextEdit" name="plainTextChoixChapitre">
+  <widget class="QPushButton" name="pushButtonPasserPrologue">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>740</y>
-     <width>141</width>
-     <height>71</height>
+     <x>810</x>
+     <y>30</y>
+     <width>131</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
+     <pointsize>8</pointsize>
      <weight>75</weight>
      <bold>true</bold>
     </font>
    </property>
-   <property name="cursor" stdset="0">
-    <cursorShape>IBeamCursor</cursorShape>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: rgb(255, 255, 255);</string>
    </property>
-   <property name="locale">
-    <locale language="French" country="France"/>
+   <property name="text">
+    <string>Passer le prologue</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBoxChapitreSuivant">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>740</y>
+     <width>211</width>
+     <height>71</height>
+    </rect>
    </property>
   </widget>
  </widget>
